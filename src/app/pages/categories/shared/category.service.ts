@@ -9,7 +9,7 @@ import { Category } from './category.model'
 })
 export class CategoryService {
 
-  private apiPath: string = 'api/category';
+  private apiPath: string = 'api/categories';
 
 
   constructor(private http: HttpClient) { }
@@ -44,6 +44,7 @@ export class CategoryService {
   }
 
   private jsonDataToCategories(jsonData: any[]): Category[] {
+    console.log('entrou')
     const categories: Category[] = [];
     jsonData.forEach(category => {
       categories.push(category as Category);
@@ -57,8 +58,8 @@ export class CategoryService {
   }
 
   private handleError(error: any): Observable<any> {
-    console.log('ERRO NA REQUISIÇÃO ->, ' + error)
-    return Observable.throw(error);
+    console.log('ERRO NA REQUISIÇÃO ->, ' + error.body.error)
+    return throwError(error.body.error);
   }
 
 
